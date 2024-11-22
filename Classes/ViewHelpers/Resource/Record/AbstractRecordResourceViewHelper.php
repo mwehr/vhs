@@ -11,13 +11,13 @@ namespace FluidTYPO3\Vhs\ViewHelpers\Resource\Record;
 use FluidTYPO3\Vhs\Traits\TemplateVariableViewHelperTrait;
 use FluidTYPO3\Vhs\Utility\DoctrineQueryProxy;
 use FluidTYPO3\Vhs\Utility\ErrorUtility;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Database\Query\Restriction\HiddenRestriction;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
@@ -165,8 +165,8 @@ abstract class AbstractRecordResourceViewHelper extends AbstractViewHelper imple
 
     public function getActiveRecord(): array
     {
-        /** @var ContentObjectRenderer $contentObject */
-        $contentObject = $this->configurationManager->getContentObject();
+        $request = $this->renderingContext->getAttribute(ServerRequestInterface::class);
+        $contentObject = $request->getAttribute('currentContentObject');
         return $contentObject->data;
     }
 
