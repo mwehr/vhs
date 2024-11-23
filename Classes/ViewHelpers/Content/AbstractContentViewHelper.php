@@ -41,9 +41,6 @@ abstract class AbstractContentViewHelper extends AbstractViewHelper
     public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager): void
     {
         $this->configurationManager = $configurationManager;
-
-        $request = $this->renderingContext->getAttribute(ServerRequestInterface::class);
-        $this->contentObject = $request->getAttribute('currentContentObject');
     }
 
     public function initializeArguments(): void
@@ -91,6 +88,13 @@ abstract class AbstractContentViewHelper extends AbstractViewHelper
         );
         $this->registerSlideArguments();
     }
+
+    public function initialize()
+    {
+        $request = $this->renderingContext->getAttribute(ServerRequestInterface::class);
+        $this->contentObject = $request->getAttribute('currentContentObject');
+    }
+
 
     protected function getContentRecords(): array
     {
