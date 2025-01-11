@@ -8,6 +8,7 @@ namespace FluidTYPO3\Vhs\ViewHelpers\Condition\Type;
  * LICENSE.md file that was distributed with this source code.
  */
 
+use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractConditionViewHelper;
 
 /**
@@ -28,7 +29,7 @@ class IsTraversableViewHelper extends AbstractConditionViewHelper
      * @param array $arguments
      * @return bool
      */
-    protected static function evaluateCondition($arguments = null)
+    public static function verdict(array $arguments, RenderingContextInterface $renderingContext)
     {
         return is_array($arguments) && $arguments['value'] instanceof \Traversable;
     }
